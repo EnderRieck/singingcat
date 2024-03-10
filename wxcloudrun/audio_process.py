@@ -125,7 +125,7 @@ def audio_process(filename: str):
     # 语音增强
     # 读取读取噪声语音
 
-    noisy_wav_file = "./data/raw_audio/test_trim_pre.wav"
+    noisy_wav_file = "data/raw_audio/test_trim_pre.wav"
     noisy, fs3 = librosa.load(noisy_wav_file, sr=None)
 
     # 设置谱减法模型参数
@@ -163,7 +163,7 @@ def audio_process(filename: str):
 
     # 对音频裁剪
 
-    file_wav1 = './data/raw_audio/enhce_2.wav'
+    file_wav1 = 'data/raw_audio/enhce_2.wav'
     data4, fs4 = librosa.load(file_wav1, sr=None, mono=False, duration=0.4)
     sf.write("./data/raw_audio/audio1.wav", data4, fs4)
 

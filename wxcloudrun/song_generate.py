@@ -179,7 +179,7 @@ def song_generate(filepath, name: str, pitch_dict):
     song.load(0, filepath + r"\data\cat_sound")
 
     # 调整音量
-    song_chord.set_volume(50*get_features.get_times(filepath + r"\data\raw_audio\audio1.wav", filepath + data.inst_path))
+    song_chord.set_volume(50 * get_features.get_times(filepath + r"\data\raw_audio\audio1.wav", filepath + data.inst_path))
     print(song_chord.get_volume()[0])
 
     # 伴奏
@@ -213,7 +213,7 @@ little_star = Song_data(key="C",
                         song_str=song_str1,
                         volume=13500,
                         inst_volume=100,
-                        inst_path=r"\data\instrument\little_star_inst.m4a",
+                        inst_path=r"data/instrument/little_star_inst.m4a",
                         bpm=70)
 
 # 生日快乐歌
@@ -223,7 +223,7 @@ happy_birthday = Song_data(key="E",
                            song_str=song_str2,
                            volume=0,
                            inst_volume=100,
-                           inst_path=r"\data\instrument\happy_birthday_inst.m4a",
+                           inst_path=r"data/instrument/happy_birthday_inst.m4a",
                            bpm=95)
 
 # 歌曲列表

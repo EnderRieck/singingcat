@@ -64,3 +64,54 @@ def get_count():
     """
     counter = Counters.query.filter(Counters.id == 1).first()
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+
+
+# 传输音频的路由
+@app.route('/audio', methods = ['POST', 'GET'])
+def songRecommend():
+    os.chdir(filepath)
+
+    # 接收base64编码的音频
+    audio_file = request.form.get('file')
+
+    # 把base64编码变成2进制编码
+    binary_audio = base64.b64decode(audio_file)
+    #binary_audio = base64.decodebytes(audio_file)
+    #audio_array = np.frombuffer(binary_audio, dtype=np.int16)  # 把2进制编码变成np数组
+
+    # 写入原音频
+    wav_result = open('./data/raw_audio/audio.wav', 'wb')
+    wav_result.write(binary_audio)
+
+    # 处理音频
+    audio_process("./data/raw_audio/audio.wav")
+
+    note = song_generate.pre_process(filepath)
+    print("note: ", note)
+
+    root = song_generate.get_fit_root(note)
+    print(root)
+
+    recom_list, pitch_list = recommend.recommend(root, note)
+    print(recom_list, pitch_list)
+
+    global pitch_dict
+    pitch_dict = {key: value for key, value in zip(recom_list, pitch_list)}
+    print(pitch_dict)
+
+    return recom_list
+
+
+@app.route('/song', methods=['POST'])
+def song_gen():
+    # 获取歌曲名称
+    song_name = request.form.get('song_name')
+    song_generate.song_generate(filepath, song_name, pitch_dict)
+
+    with open('song.mp3', 'rb') as file:
+        song = file.read()
+
+    song = base64.b64encode(song)
+    return song
+
+

@@ -5,6 +5,24 @@ from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
 
+import os
+
+from flask import Flask, request
+import base64
+import time
+
+from audio_process import audio_process
+import song_generate
+import librosa
+import numpy as np
+import soundfile as sf
+import matplotlib.pyplot as plt
+import librosa.display
+
+from musicpy.daw import *
+from musicpy import *
+import recommend
+
 
 @app.route('/')
 def index():
